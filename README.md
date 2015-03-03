@@ -8,4 +8,6 @@ Dependencies:
   Wongun Choi, Caroline Pantofaru, Silvio Savarese, "A General Framework for Tracking Multiple People from a Moving Camera", PAMI 
   http://wwweb.eecs.umich.edu/vision/mttproject.html
   svn checkout http://mtt-umich.googlecode.com/svn/tags/release-0.5
-
+- OpenCV
+- Boost
+- Cmake
