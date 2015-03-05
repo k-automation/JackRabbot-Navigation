@@ -1,0 +1,16 @@
+What is the problem that you will be investigating? Why is it interesting?
+What data will you use? If you are collecting new datasets, how do you plan to collect them?
+What method or algorithm are you proposing? If there are existing implementations, will you use them and how? How do you plan to improve or modify such implementations?
+What reading will you examine to provide context and background?
+How will you evaluate your results? Qualitatively, what kind of results do you expect (e.g. plots or figures)? Quantitatively, what kind of analysis will you use to evaluate and/or compare your results (e.g. what performance metrics or statistical tests)?
+
+
+
+[cs231n] project proposal + your SUNet Ids) of your project proposal to cs231n-winter1415-staff@lists.stanford.edu. 
+
+
+This project will combine aspects of CS231A and CS231N with the JackRabbot Research Project from Silvio Savarese's lab. We plan to use this project for both class projects.
+
+The Jackrabbot is an autonomous delivery robot designed to share pedestrian walkways. In contrast to autonomous vehicles, this proposes the challenges of interacting safely with humans and bikers in a socially acceptable fashion. The path of the Jackrabbot then becomes nontrivial, as it cannot block pedestrian traffic or scare fellow travelers. The goal of our project is to develop a path-planning algorithm for the Jackrabbot that learns from observing the path-finding behaviors of the humans it will share walkways with. We will collect a dataset by manually driving the Jackrabbot around campus and recording the camera feed captured by the robot and the robot's trajectory. The camera feed will serve as input to the convolutional neural network and the manually guided robot path will act as the desired output. We will compare several different convolutional neural network structures. We will also compare our algorithm to supervised learning on the same dataset but using other computer vision techniques such as object detection and tracking as features. We will reference material from CS231A and CS231N, as well as literature describing ALVINN, an autonomous land vehicle in a neural network, developed at Carnegie Mellon that attempted to solve similar challenges but in a driving environment [1]. To evaluate our algorithm's performance qualitatively we can draw maps comparing the manually driven robot trajectory to trajectory produced by each of the algorithms. Quantitatively we will measure the L2 norm between the predicted velocity vector at each timestamp and the manually guided vector. The best algorithm will be the one that minimizes the mean squared error against the predicted trajectory.
+
+[1] http://repository.cmu.edu/cgi/viewcontent.cgi?article=2874&context=compsci

@@ -1,0 +1,6 @@
+vel_limit_mps: 0.5
+accel_limit_mps2: 0.5
+decel_limit_mps2: 0.5
+dtz_decel_limit_mps2: 1.0
+yaw_rate_limit_rps: 1.571
+yaw_accel_limit_rps2: 2.0

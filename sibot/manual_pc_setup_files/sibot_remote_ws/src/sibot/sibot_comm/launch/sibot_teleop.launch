@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="sibot_comm" type="xbox_rmp.py" name="sibot_teleop" output="screen">
+        <param name="platform" value="sibot" />
+    </node>
+    
+</launch>

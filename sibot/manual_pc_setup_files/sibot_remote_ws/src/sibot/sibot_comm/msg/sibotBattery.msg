@@ -1,0 +1,9 @@
+Header header
+float32[] mcu_battery_soc
+float32[] mcu_battery_temp_degC
+float32 min_propulsion_batt_soc
+float32 aux_batt_soc
+float32 aux_batt_voltage_V
+float32 aux_batt_current_A
+float32 aux_batt_temp_degC
+uint32 abb_status

@@ -1,0 +1,9 @@
+Header header
+float32 right_motor_current_A0pk
+float32 left_motor_current_A0pk
+float32 max_motor_current_A0pk
+float32 right_motor_current_limit_A0pk
+float32 left_motor_current_limit_A0pk
+float32 min_motor_current_limit_A0pk
+float32[] mcu_inst_power_W
+float32[] mcu_total_energy_Wh

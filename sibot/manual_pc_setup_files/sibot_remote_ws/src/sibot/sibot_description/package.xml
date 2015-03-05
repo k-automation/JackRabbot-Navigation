@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+
+  <name>sibot_description</name>
+  <version>1.0.0</version>
+  <description>sibot_description</description>
+  <maintainer email="support@stanleyinnovation.com">Stanley Innovation</maintainer>
+  <license>BSD</license>
+
+  <url type="website">https://www.stanleyinnovation.com</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>urdf</build_depend>
+  <run_depend>urdf</run_depend>
+
+</package>

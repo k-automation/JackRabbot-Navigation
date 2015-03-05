@@ -1,0 +1,117 @@
+#!/bin/bash
+
+if [ ! -z "$1" ]
+then
+
+
+    case "$1" in
+            mapping)
+                S2SCRIPT="./start_sibot_mapping"
+                MONITOR="sibot_mapping_monitor.launch"
+                ;;
+             
+            global_nav)
+                if [ ! -z "$2" ]
+                then
+                    MAPFILE=$2
+                else
+                    echo "You have to specify a map file for Global Navigation...exiting"
+                    exit 1
+                fi
+                
+                S2SCRIPT="./start_sibot_2dnav_global"
+                MONITOR="sibot_2dnav_global_monitor.launch"
+                ;;
+                
+            global_nav_goals)
+                if [ ! -z "$2" ]
+                then
+                    MAPFILE=$2
+                else
+                    echo "You have to specify a map file for Global Navigation...exiting"
+                    exit 1
+                fi
+                
+                S2SCRIPT="./start_sibot_2dnav_global_goals"
+                MONITOR="sibot_2dnav_global_monitor.launch"
+                ;;
+                
+            global_nav_set_goals)
+                if [ ! -z "$2" ]
+                then
+                    MAPFILE=$2
+                else
+                    echo "You have to specify a map file for Global Navigation...exiting"
+                    exit 1
+                fi
+                
+                S2SCRIPT="./start_sibot_2dnav_global_set_goals"
+                MONITOR="sibot_2dnav_global_set_goals_monitor.launch"
+                ;;
+             
+            local_nav)
+                S2SCRIPT="./start_sibot_2dnav_local"
+                MONITOR="sibot_2dnav_local_monitor.launch"
+                ;;
+            basic_teleop)
+                S2SCRIPT="./start_sibot_basic_teleop"
+                MONITOR="sibot_basic_teleop_monitor.launch"
+                ;;
+            assisted_teleop)
+                S2SCRIPT="./start_sibot_assisted_teleop"
+                MONITOR="sibot_assisted_teleop_monitor.launch"
+                ;;
+             
+            *)
+                echo $"Usage: $0 {mapping|global_nav|global_nav_goals|global_nav_set_goals|local_nav|basic_teleop|assisted_teleop}\n"
+                exit 1
+ 
+    esac
+else
+    echo $"Usage: $0 {mapping|global_nav|global_nav_goals|global_nav_set_goals|local_nav|basic_teleop|assisted_teleop}"
+    exit 1
+fi
+
+
+
+
+
+source '/home/stanford/.bashrc'
+WID=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)"| awk '{print $5}')
+xdotool windowmove $WID 0 0
+unset x y w h
+eval $(xwininfo -id $(xdotool getactivewindow) |
+sed -n -e "s/^ \+Absolute upper-left X: \+\([0-9]\+\).*/x=\1/p" \
+       -e "s/^ \+Absolute upper-left Y: \+\([0-9]\+\).*/y=\1/p" \
+       -e "s/^ \+Width: \+\([0-9]\+\).*/w=\1/p" \
+       -e "s/^ \+Height: \+\([0-9]\+\).*/h=\1/p" )
+
+ssh -X sibot@sibot2 'gnome-terminal --title="SOME TITLE HERE"&' &
+sleep 2
+WID2=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)"| awk '{print $5}')
+xdotool windowfocus $WID2
+wmctrl -i -r $WID2 -e 0,$w,0,$w,$h
+sleep 2
+if [ ! -z "$MAPFILE" ]
+then
+    xdotool type "$S2SCRIPT $MAPFILE"
+else
+    xdotool type "$S2SCRIPT"
+fi
+xdotool key Return
+sleep 2
+xdotool windowraise $WID2
+sleep 2
+xdotool windowfocus $WID
+sleep 2
+xdotool type "cd ~/sibot_remote_ws"
+xdotool key Return
+xdotool type "sws"
+xdotool key Return
+sleep 3
+source '/home/stanford/.bashrc'
+xdotool type "roslaunch remote_monitor $MONITOR"
+xdotool key Return
+xdotool windowfocus $WID2
+sleep 5
+xdotool windowraise $WID2

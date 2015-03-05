@@ -1,0 +1,36 @@
+<launch>
+  <arg
+    name="model" default="sibot" />
+  <arg
+    name="gui"
+    default="True" />
+  <param
+    name="sibot_description"
+    textfile="$(find sibot)/robots/sibot.URDF" />
+  <param
+    name="use_gui"
+    value="$(arg gui)" />
+  <node
+    name="joint_state_publisher"
+    pkg="joint_state_publisher"
+    type="joint_state_publisher" >
+    <param name="tf_prefix" value="/sibot" />
+    <param name="publish_frequency" value="50.0" />
+    <remap from="joint_states" to="/sibot/joint_states" />
+    <remap from="robot_description" to="sibot_description" />
+  </node>
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="state_publisher" >
+    <param name="tf_prefix" value="/sibot" />
+    <param name="publish_frequency" value="50.0" />
+    <remap from="joint_states" to="/sibot/joint_states" />
+    <remap from="robot_description" to="sibot_description" />
+  </node>
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find sibot)/urdf.rviz" />
+</launch>

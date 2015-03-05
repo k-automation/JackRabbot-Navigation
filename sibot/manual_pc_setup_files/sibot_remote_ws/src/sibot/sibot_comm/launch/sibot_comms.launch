@@ -1,0 +1,16 @@
+<launch>
+
+    <include file="$(find sibot_startup)/sibot_sensors.launch"/>
+    
+    <node pkg="sibot_comm" type="rmp_comm.py" name="rmp_comm" output="screen">
+        <param name="platform" value="sibot" />
+        <param name="log_data" type="bool" value="False" />
+        <param name="cmd_update_rate" type="double" value="0.01" />
+        <param name="set_ekf_initial_pose" type="bool" value="true" />
+        <rosparam file="$(find sibot_comm)/config/sibot_imu_biases.yaml" command="load" ns="/imu_biases"/>
+    </node>
+    
+    <include file="$(find sibot_startup)/localization/sibot_ukf_local.launch"/>
+    
+    <include file="$(find sibot_navigation_teleop)/teleop.launch" /> 
+</launch>

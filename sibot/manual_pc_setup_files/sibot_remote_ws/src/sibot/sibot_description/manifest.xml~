@@ -1,0 +1,6 @@
+<package>
+  <description brief="sibot_description">sibot_description</description>
+  <depend package="gazebo" />
+  <author>Patrick Hussey</author>
+  <license>BSD</license>
+</package>

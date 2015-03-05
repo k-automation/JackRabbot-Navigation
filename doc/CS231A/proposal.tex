@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,enumitem,amsmath,amssymb,graphicx}
+
+\usepackage{lipsum}
+\usepackage{multicol}
+\usepackage{cite}
+
+\begin{document}
+
+\title{Learning to Walk: A Tale of Jackrabbot's Path-finding Adventures \\
+\Large CS231A Winter 2015 Project Proposal}
+
+\date{\today}
+
+\author{
+\begin{tabular}{c c c}
+Kathy Sun && John Doherty \\
+kathysun && doherty1 \\
+\end{tabular} }
+
+\maketitle
+
+\section{Introduction}
+
+The Jackrabbot is an autonomous delivery robot designed to share pedestrian walkways. In contrast to autonomous vehicles, this proposes the challenges of interacting safely with humans and bikers in a socially acceptable fashion. The path of the Jackrabbot then becomes nontrivial, as it cannot block pedestrian traffic or scare fellow travelers. The goal of our project is to develop a path-planning algorithm for the Jackrabbot that learns from observing the path-finding behaviors of the humans it will share walkways with. 
+
+This project will combine aspects of CS231A and CS231N with the JackRabbot Research Project from Silvio Savarese's lab. We plan to use this project for both class projects, however only Kathy is in CS231A, while both are in CS231N.
+
+\section{Implementation}
+
+We will collect a dataset by manually driving the Jackrabbot around campus and recording the camera feed captured by the robot and the robot's trajectory. The camera feed will serve as input to the convolutional neural network and the manually guided robot path will act as the desired output. We will compare several different convolutional neural network structures.   We will also compare our algorithm to supervised learning on the same dataset but using other computer vision techniques such as object detection and tracking as features. We will use C++ to implement this. All of the data collection, image preprocessing, and tracking will be our own code. For the learning and object detection, we will use libraries such as OpenCV and Caffe. We will reference material from CS231A and CS231N, as well as literature describing ALVINN, an autonomous land vehicle in a neural network, developed at Carnegie Mellon that attempted to solve similar challenges but in a driving environment \cite{ALVINN}. To evaluate our algorithm's performance qualitatively we can draw maps comparing the manually driven robot trajectory to trajectory produced by each of the algorithms. Quantitatively we will measure the L2 norm between the predicted velocity vector at each timestamp and the manually guided vector. The best algorithm will be the one that minimizes the mean squared error against the predicted trajectory.
+
+Both team members will probably work on every aspect of the project, but Kathy will be primarily responsible for the computer vision part, since she is the only one taking CS231A. John will be responsible for the convolutional neural network part. Both will collect and process the data.
+
+\section{Milestones}
+\begin{itemize}
+\item 2/13/15: Collect Data
+\item 2/13/15: Preprocess Data
+\item 2/20/15: Convolutional Neural Network
+\item 2/27/15: Object detection and tracking
+\item 3/1/15: Learning on Vision
+\item 3/8/15: Plot Output Trajectories on Map
+\item 3/8/15: Compare Numerical Results from Each Algorithm
+\end{itemize}
+
+\begin{thebibliography}{1}
+
+\bibitem{alvinn}
+Pomerleau, Dean A., "ALVINN, an autonomous land vehicle in a neural network", Carnegie Mellon University, 1989. http://repository.cmu.edu/cgi/viewcontent.cgi?article=2874\&context=compsci.
+
+% CS231N Notes
+\bibitem{andrej}
+Li, Fei-Fei and Karpathy, Andrej. "CS231n: Convolutional Neural Networks for Visual Recognition", 2015. http://cs231n.github.io.
+
+% CS231A Textbooks
+\bibitem{A1}
+D. A. Forsyth and J. Ponce. \emph{Computer Vision: A Modern Approach (2nd Edition)}. Prentice Hall, 2011.
+\bibitem{A2}
+R. Hartley and A. Zisserman. \emph{Multiple View Geometry in Computer Vision}. Cambridge University Press, 2003. http://searchworks.stanford.edu/view/5628700.
+\bibitem{A3}
+R. Szeliski. \emph{Computer Vision: Algorithms and Applications}. Springer, 2011. http://searchworks.stanford.edu/view/9115177.
+\bibitem{A4}
+D. Hoiem and S. Savarese. "Representations and Techniques for 3D Object Recognition and Scene Interpretation", \emph{Synthesis lecture on Artificial Intelligence and Machine Learning}. Morgan Claypool Publishers, 2011. http://searchworks.stanford.edu/view/9379642.
+\bibitem{A5}
+Gary Bradski, Adrian Kaehler. \emph{Learning OpenCV}, O'Reilly Media, 2008. http://searchworks.stanford.edu/view/7734261. 
+
+
+\end{thebibliography}
+
+\end{document}

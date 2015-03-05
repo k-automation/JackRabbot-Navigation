@@ -1,0 +1,6 @@
+<launch>
+    <env name="ROS_MASTER_URI" value="http://SIBOT2:11311"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find remote_monitor)/launch/rviz_templates/sibot_2dnav_global.rviz" output="screen"/>
+</launch>
+
+
