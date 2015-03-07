@@ -13,7 +13,7 @@ args = parser.parse_args()
 
 root_folder = args.root_folder
 if not args.out:
-  out_folder = join(root_folder, 'optflow/')
+  out_folder = root_folder
 else:
   out_folder = args.out
 
@@ -22,3 +22,24 @@ image_files.sort()
 if not isdir(out_folder):
   makedirs(out_folder)
 
+label_files = glob.glob(join(root_folder, '*/out.txt'))
+N = len(label_files)
+perm = randperm(N)
+
+train_file = open(join(out_folder, 'train.txt'), 'w')
+val_file = open(join(out_folder, 'val.txt'), 'w')
+test_file = open(join(out_folder, 'test.txt'), 'w')
+
+for i in range(round(0.7*N)):
+  for line in open(label_files[perm[i]], 'r'):
+    train_file.write( line )
+for i in range(round(0.7*N), round(0.9*N)):
+  for line in open(label_files[perm[i]], 'r'):
+    val_file.write( line )
+for i in range(round(0.9*N), N):
+  for line in open(label_files[perm[i]], 'r'):
+    test_file.write( line )
+
+train_file.close()
+val_file.close()
+test_file.close()
