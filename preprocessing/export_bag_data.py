@@ -43,9 +43,8 @@ for bagfile in bagfiles:
     topic_to_out_file = {}
     topic_to_image_dir = {}
     for topic in image_topics:
-        dir_ext = "-".join(topic.split('/')[1:])
-        dir_name = "{0}-{1}".format(base_bag_name, dir_ext)
-        image_dir = join(base_image_path, dir_name)
+        topic_dir = "-".join(topic.split('/')[1:])
+        image_dir = join(base_image_path, base_bag_name, topic_dir)
         if not exists(image_dir):
             makedirs(image_dir)
         topic_to_image_dir[topic] = image_dir
