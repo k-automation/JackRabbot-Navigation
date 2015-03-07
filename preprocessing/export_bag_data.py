@@ -20,7 +20,7 @@ image_topic = args.image_topic
 base_image_path = args.out_path
 out_filename = 'out.txt'
 bin_count = 20
-out_image_size = (272, 512)
+out_image_size = (512, 272)
 
 bridge = CvBridge()
 
