@@ -58,12 +58,13 @@ for bagfile in bagfiles:
             last_joy_msg = copy(msg)
             last_joy_time = copy(t)
         elif topic == image_topic:
-            image_path = join(image_dir, "frame{:03}.jpg".format(i))
+            image_name = "frame{:03}.jpg".format(i)
+            image_path = join(image_dir, image_name)
             cv_image = bridge.imgmsg_to_cv2(msg)
             cv_image = cv2.resize(cv_image, out_image_size)
             correct_class = classify_joy(last_joy_msg.axes[3], bin_count)
             if cv2.imwrite(image_path, cv_image):
-                line = "{0} {1}\n".format(image_path, correct_class)
+                line = "{0} {1}\n".format(join(base_path, image_name), correct_class)
                 i += 1
             
             out_file.write(line)
