@@ -42,13 +42,15 @@ for bagfile in bagfiles:
     base_bag_name = splitext(basename(bagfile))[0]
     topic_to_out_file = {}
     topic_to_image_dir = {}
+    topic_to_rel_path = {}
     for topic in image_topics:
-        topic_dir = "-".join(topic.split('/')[1:])
+        topic_dir = "_".join(topic.split('/')[1:])
         image_dir = join(base_image_path, base_bag_name, topic_dir)
         if not exists(image_dir):
             makedirs(image_dir)
         topic_to_image_dir[topic] = image_dir
         topic_to_out_file[topic] = open(join(image_dir, out_filename), 'w')
+        topic_to_rel_path[topic] = join(base_bag_name, topic_dir)
     bag = rosbag.Bag(bagfile)
     last_joy_msg = None
     last_joy_time = None
@@ -65,7 +67,8 @@ for bagfile in bagfiles:
             cv_image = cv2.resize(cv_image, out_image_size)
             correct_class = classify_joy(last_joy_msg.axes[3], bin_count)
             if cv2.imwrite(join(topic_to_image_dir[topic], image_name), cv_image):
-                line = "{0} {1}\n".format(image_name, correct_class)
+                image_rel_path = join(topic_to_rel_path[topic], image_name)
+                line = "{0} {1}\n".format(image_rel_path, correct_class)
                 topic_to_out_file[topic].write(line)
                 i += 1
     for topic in topic_to_out_file:
