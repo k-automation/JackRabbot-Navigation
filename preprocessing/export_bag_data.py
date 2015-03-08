@@ -9,7 +9,7 @@ from copy import copy
 parser = argparse.ArgumentParser(description='Process some integers.')
 parser.add_argument('bag_files', metavar='bags', type=str, nargs='+',
                    help='file names for bags')
-parser.add_argument('--out', dest='out_path', default='sibot/left/image_rect', help='output path')
+parser.add_argument('--out', dest='out_path', default='', help='output path')
 
 args = parser.parse_args()
 
@@ -54,14 +54,17 @@ for bagfile in bagfiles:
     bag = rosbag.Bag(bagfile)
     last_joy_msg = None
     last_joy_time = None
-    i = 0
+    topic_to_count = {}
+    for topic in image_topics:
+        topic_to_count[topic] = 0
+
     prev_t = None
     for topic, msg, t in bag.read_messages():
         if topic == 'joy':
             last_joy_msg = copy(msg)
             last_joy_time = copy(t)
         elif topic in topic_to_image_dir:
-            image_name = "frame{:03}.jpg".format(i)
+            image_name = "frame{:04}.jpg".format(topic_to_count[topic])
             image_path = join(image_dir, image_name)
             cv_image = bridge.imgmsg_to_cv2(msg)
             cv_image = cv2.resize(cv_image, out_image_size)
@@ -70,7 +73,7 @@ for bagfile in bagfiles:
                 image_rel_path = join(topic_to_rel_path[topic], image_name)
                 line = "{0} {1}\n".format(image_rel_path, correct_class)
                 topic_to_out_file[topic].write(line)
-                i += 1
+                topic_to_count[topic] += 1
     for topic in topic_to_out_file:
         topic_to_out_file[topic].close()
  
