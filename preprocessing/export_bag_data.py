@@ -37,8 +37,11 @@ def classify_joy(right_lr_axis, bins):
     #        return i
     #return bins - 1
 
+bagcount = 0
 
 for bagfile in bagfiles:
+    print "Bag {0} of {1}".format(bagcount, len(bagfiles))
+    bagcount += 1
     base_bag_name = splitext(basename(bagfile))[0]
     topic_to_out_file = {}
     topic_to_image_dir = {}
