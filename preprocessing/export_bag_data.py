@@ -15,7 +15,7 @@ args = parser.parse_args()
 
 # get bags from arguments
 bagfiles = args.bag_files
-image_topics = ['sibot/left/image_rect', 'sibot/right/image_rect']
+image_topics = ['sibot/left/image_rect_color', 'sibot/left/image_rect', 'sibot/right/image_rect']
 base_image_path = args.out_path
 out_filename = 'out.txt'
 bin_count = 20
